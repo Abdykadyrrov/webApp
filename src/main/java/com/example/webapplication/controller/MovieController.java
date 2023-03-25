@@ -3,13 +3,13 @@ package com.example.webapplication.controller;
 import com.example.webapplication.model.Movie;
 import com.example.webapplication.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("movies")
 public class MovieController {
     private final MovieService movieService;
     @Autowired
@@ -17,9 +17,9 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @GetMapping("/m")
+    @GetMapping("/")
     public String getMovies(Model model){
-        List<Movie> movies = List.of(new Movie(1L,"DS","sd",4343));
+        List<Movie> movies = movieService.getMovies();
         model.addAttribute("movies",movies);
         return "index"; // Here, you are returning the name of the template file with the model object
     }

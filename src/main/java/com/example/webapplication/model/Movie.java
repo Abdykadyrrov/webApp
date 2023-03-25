@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
-@Entity
-@Table
+@Entity(name = "movie")
 public class Movie {
     @Id
     @SequenceGenerator(
@@ -14,7 +13,7 @@ public class Movie {
             allocationSize = 1
     )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
+            strategy = GenerationType.IDENTITY,
             generator = "movie_sequence"
     )
     private Long id;

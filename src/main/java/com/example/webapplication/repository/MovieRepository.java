@@ -16,6 +16,6 @@ import java.util.function.Function;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
-    @Query("SELECT m FROM Movie m WHERE m.name = ?1 AND m.author = ?2")
+    @Query("SELECT m FROM movie m WHERE m.name = ?1 AND m.author = ?2")
     Optional<Movie> findMoviesByNameAndAuthor(String name,String author);
 }
