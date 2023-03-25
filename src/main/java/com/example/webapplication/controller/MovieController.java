@@ -2,10 +2,9 @@ package com.example.webapplication.controller;
 
 import com.example.webapplication.model.Movie;
 import com.example.webapplication.service.MovieService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,21 @@ public class MovieController {
     @GetMapping
     public List<Movie> getMovies(){
         return movieService.getMovies();
+    }
+    @PostMapping
+    public void addNewMovie(@RequestBody Movie movie){
+        movieService.addNewMovie(movie);
+    }
+    @DeleteMapping(path = "{movieId}")
+    public void deleteMovie(@PathVariable("movieId") Long movieId){
+        movieService.deleteMovie(movieId);
+    }
+    @PostMapping(path = "{movieId}")
+    public void updateMovie(
+            @PathVariable("movieId") Long movieId,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String author,
+            @RequestParam(required = false) Integer year){
+        movieService.updateMovie(movieId, name, author, year);
     }
 }
