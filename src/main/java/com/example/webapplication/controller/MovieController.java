@@ -2,14 +2,14 @@ package com.example.webapplication.controller;
 
 import com.example.webapplication.model.Movie;
 import com.example.webapplication.service.MovieService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "movies")
+@RequestMapping("movies")
 public class MovieController {
     private final MovieService movieService;
     @Autowired
@@ -17,9 +17,11 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @GetMapping
-    public List<Movie> getMovies(){
-        return movieService.getMovies();
+    @GetMapping("/m")
+    public String getMovies(Model model){
+        List<Movie> movies = List.of(new Movie(1L,"DS","sd",4343));
+        model.addAttribute("movies",movies);
+        return "index"; // Here, you are returning the name of the template file with the model object
     }
     @PostMapping
     public void addNewMovie(@RequestBody Movie movie){
