@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class MovieController {
     private final MovieService movieService;
     @Autowired
@@ -17,7 +17,7 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/movies")
     public String getMovies(Model model){
         List<Movie> movies = movieService.getMovies();
         model.addAttribute("movies",movies);
@@ -27,11 +27,11 @@ public class MovieController {
     public void addNewMovie(@RequestBody Movie movie){
         movieService.addNewMovie(movie);
     }
-    @DeleteMapping(path = "{movieId}")
+    @DeleteMapping(value = "{movieId}")
     public void deleteMovie(@PathVariable("movieId") Long movieId){
         movieService.deleteMovie(movieId);
     }
-    @PostMapping(path = "{movieId}")
+    @PostMapping(value = "{movieId}")
     public void updateMovie(
             @PathVariable("movieId") Long movieId,
             @RequestParam(required = false) String name,
